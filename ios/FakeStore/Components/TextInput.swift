@@ -1,18 +1,18 @@
 //
-//  CartView.swift
+//  TextInput.swift
 //  FakeStore
 //
-//  Created by Malgorzata Mazurek on 12/22/24.
+//  Created by Malgorzata Mazurek on 1/7/25.
 //
 
 import SwiftUI
 
-struct CartView: View {
+struct TextInput: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    CartView()
+    TextInput()
 }
