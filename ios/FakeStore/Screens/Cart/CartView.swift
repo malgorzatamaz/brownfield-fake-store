@@ -9,51 +9,50 @@ import SwiftUI
 
 struct CartView: View {
     var body: some View {
-        HStack{
-            RoundedButton(action: {
+        VStack{
+            HStack{
+                RoundedButton(action: {
+                    
+                }) {
+                    Image(systemName: "arrowshape.backward")
+                        .imageScale(.medium)
+                        .foregroundStyle(buttonIconColor)
+                }
+                Text("Cart").font(.title2).padding(.trailing, vPadding)
+                Spacer()
                 
-            }) {
-                
-                Image(systemName: "arrowshape.backward")
-                    .imageScale(.medium)
-                    .foregroundStyle(.tint)
+            }.padding(.vertical, vPadding)
+            ScrollView{
+                CartItem()
+                CartItem()
+                CartItem()
+                CartItem()
+                CartItem()
+                CartItem()
             }
-            Text("Cart").font(.title2).padding(.trailing, vPadding)
-            Spacer()
             
-        }.padding(.horizontal, hPadding)
-        
-        
-        HStack{
-            Card(width: 200,height: 300, content: {
-                AsyncImage(url: URL(string: campaign1)){ image in
-                    image
-                        .resizable().frame(width: 200, height: 200)
-                } placeholder: {
-                    Color.gray.opacity(0.1).frame(width: 200, height: 200)
+            Grid(verticalSpacing: 5){
+                HStack{
+                    Text("Sub Total")
+                    Spacer()
+                    Text("650$")
                 }
-                
-            })
-            
-            VStack(alignment: .leading){
-                HStack {
-                    Text("Name: ")
-                    Text("Oh Snap Pencil")
-                }
-                
-                HStack {
-                    Text("Price: ")
+                HStack{
+                    Text("Shipping")
+                    Spacer()
                     Text("10$")
                 }
-                
-                HStack {
-                    Text("Brand: ")
-                    Text("Maybeline")
+                HStack{
+                    Text("Total")
+                    Spacer()
+                    Text("660$")
                 }
-                
             }
-        }
-        Spacer()
+            
+            RectButton(action: {
+                
+            }, text: "Checkout")
+        }.padding(.horizontal, hPadding)
     }
 }
 

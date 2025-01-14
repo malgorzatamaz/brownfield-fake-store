@@ -21,12 +21,16 @@ struct RoundedButton<Content: View>: View {
     }
     
     var body: some View {
-        Button(action: action) {
-            content()
+        ZStack{
+            Button(action: action) {
+                content()
+            }
+            .frame(width: 40, height: 40)
+            .background(
+                RoundedRectangle(cornerRadius: 40)
+                    .stroke(.gray, lineWidth: 1).fill(.white)
+            )
         }
-        .frame(width: 40, height: 40)
-        .background(Color.white)
-        .cornerRadius(40)
     }
 }
 
@@ -34,8 +38,8 @@ struct RoundedButton<Content: View>: View {
     RoundedButton(action: {
         // Action for "See All"
     }) {
-    Image(systemName: "arrowshape.backward")
-        .imageScale(.large)
-        .foregroundStyle(.tint)
+        Image(systemName: "arrowshape.backward")
+            .imageScale(.medium)
+            .foregroundStyle(buttonIconColor)
     }
 }

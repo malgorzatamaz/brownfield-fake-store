@@ -8,21 +8,21 @@
 
 import SwiftUI
 
-struct RectButton<Content: View>: View {
+struct RectButton: View {
     let action: () -> Void
-    let content: () -> Content
+    let text: String
     
     init(
         action: @escaping () -> Void,
-        @ViewBuilder content: @escaping () -> Content
+        text: String
     ) {
         self.action = action
-        self.content = content
+        self.text = text
     }
     
     var body: some View {
         Button(action: action) {
-            Text("Text").foregroundColor(.white)
+            Text(text).font(.title3).foregroundColor(.white)
         }
         .frame(maxWidth: .infinity, minHeight: 40)
         .background(.blue)
@@ -32,8 +32,6 @@ struct RectButton<Content: View>: View {
 
 #Preview {
     RectButton(action: {
-        // Action for "See All"
-    }) {
-
-    }
+        
+    }, text: "Text")
 }

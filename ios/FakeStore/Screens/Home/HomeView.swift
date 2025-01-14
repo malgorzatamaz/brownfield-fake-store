@@ -11,7 +11,7 @@ let campaign1 = "https://i.ibb.co/GTmVxSM/DALL-E-2024-12-08-16-24-02-A-modern-an
 
 let campaign2 = "https://i.ibb.co/ZNHkV7g/DALL-E-2024-12-08-16-25-23-A-modern-and-elegant-promotional-banner-for-Cosmethics-a-luxury-skincare.webp"
 
-let hPadding = 20.0
+
 
 struct Carousel: View {
     var body: some View{
@@ -95,13 +95,14 @@ struct Deals: View {
 
 struct HomeView: View {
     var body: some View {
-        ScrollView{
-            Header()
-            Deals()
-            CategoriesView()
-            Carousel()
+        Navigation{
+            ScrollView{
+                Header()
+                Deals()
+                CategoriesView()
+                Carousel()
+            }
         }
-        
     }
 }
 

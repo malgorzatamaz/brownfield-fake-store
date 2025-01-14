@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+
+let hPadding = 15.0
+let vPadding = 10.0
+let buttonIconColor = Color.black
