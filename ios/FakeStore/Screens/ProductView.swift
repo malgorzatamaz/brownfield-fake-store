@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ProductView: View {
-    var title = "Title"
-    var price = "$350"
-    var rating = "4.5 (23k)"
-
-    var description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    let product: Product
     
+    init(product: Product) {
+        self.product = product;
+    }
+    
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack{
             HStack{
                 RoundedButton(action: {
-                    
+                    dismiss()
                 }) {
                     
                     Image(systemName: "arrowshape.backward")
@@ -49,32 +50,42 @@ struct ProductView: View {
             }
             
             ScrollView{
-                AsyncImage(url: URL(string: campaign1)){ image in
-                    image
-                        .resizable().frame(height: 200)
-                        .padding(.vertical, vPadding)
-                } placeholder: {
+                if(product.apiFeaturedImage != nil){
+                    AsyncImage(url: URL(string: product.apiFeaturedImage!)){ image in
+                        image
+                            .resizable().frame(height: 200)
+                            .padding(.vertical, vPadding)
+                    } placeholder: {
+                        Color.gray.opacity(0.1).frame(height: 200)
+                    }
+                } else {
                     Color.gray.opacity(0.1).frame(height: 200)
                 }
                 
                 
                 HStack(alignment: .top){
-                    Text(title).font(.title2).bold()
+                    Text(product.name).font(.title2).bold()
                     Spacer()
-                    Text(price).font(.headline)
+                    if(product.price != nil)
+                    {
+                        Text(product.price!).font(.headline)
+                    }
                 }.padding(.top, hPadding)
                 
                 HStack{
                     Image(systemName: "star.fill")
                         .imageScale(.large)
                         .foregroundStyle(.tint)
-                    Text(rating)
+                    if(product.rating != nil)
+                    {
+                        Text(String(product.rating!))
+                    }
                     Spacer()
                 }
                 
                 VStack(alignment: .leading){
-                    Text(title).font(.title3).padding(.top, hPadding)
-                    Text(description)
+                    Text(product.name).font(.title3).padding(.top, hPadding)
+                    Text(product.description ?? "")
                 }.padding(.vertical, hPadding)
             }
             Spacer()
@@ -84,5 +95,5 @@ struct ProductView: View {
     }
 
 #Preview {
-    ProductView()
+    ProductView(product: productMock)
 }

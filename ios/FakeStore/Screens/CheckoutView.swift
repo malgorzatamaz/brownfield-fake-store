@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CheckoutView: View {
+    @Environment(\.dismiss) var dismiss
     @State var text = ""
     
     var body: some View {

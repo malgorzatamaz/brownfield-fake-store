@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct CartView: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack{
             HStack{
                 RoundedButton(action: {
-                    
+                    dismiss()
                 }) {
                     Image(systemName: "arrowshape.backward")
                         .imageScale(.medium)

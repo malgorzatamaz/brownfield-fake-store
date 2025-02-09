@@ -1,20 +1,19 @@
 //
-//  Whishlist.swift
+//  CategoryView.swift
 //  FakeStore
 //
-//  Created by Malgorzata Mazurek on 1/14/25.
+//  Created by Malgorzata Mazurek on 1/15/25.
 //
 
 import SwiftUI
 
-struct WhishlistView: View {
+struct CategoryView: View {
     @Environment(\.dismiss) var dismiss
     var body: some View {
         HStack{
             RoundedButton(action: {
                 dismiss()
             }) {
-                
                 Image(systemName: "arrowshape.backward")
                     .imageScale(.medium)
                     .foregroundStyle(buttonIconColor)
@@ -27,5 +26,5 @@ struct WhishlistView: View {
 }
 
 #Preview {
-    WhishlistView()
+    CategoryView()
 }

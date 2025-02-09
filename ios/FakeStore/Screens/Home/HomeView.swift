@@ -13,39 +13,6 @@ let campaign2 = "https://i.ibb.co/ZNHkV7g/DALL-E-2024-12-08-16-25-23-A-modern-an
 
 
 
-struct Carousel: View {
-    var body: some View{
-        VStack(alignment: .leading){
-            Text("New arrival")
-            HStack {
-                AsyncImage(url: URL(string: campaign1)){ image in
-                    image
-                        .resizable().frame(width: 100, height: 100)
-                } placeholder: {
-                    Color.gray.opacity(0.1).frame(width: 100, height: 100)
-                }
-                
-                AsyncImage(url: URL(string: campaign1)){ image in
-                    image
-                        .resizable().frame(width: 100, height: 100)
-                } placeholder: {
-                    Color.gray.opacity(0.1).frame(width: 100, height: 100)
-                }
-                
-                AsyncImage(url: URL(string: campaign1)){ image in
-                    image
-                        .resizable().frame(width: 100, height: 100)
-                } placeholder: {
-                    Color.gray.opacity(0.1).frame(width: 100, height: 100)
-                }
-                
-            }
-        }
-    }
-}
-
-
-
 struct Header: View {
     var body: some View{
         VStack {
@@ -68,7 +35,6 @@ struct Header: View {
                 }
             }.padding(hPadding)
         }
-        
     }
 }
 
@@ -76,31 +42,40 @@ struct Header: View {
 
 struct Deals: View {
     var body: some View{
-        AsyncImage(url: URL(string: campaign1)){ image in
-            image
-                .resizable().frame(height: 200)
-                .padding(hPadding)
-        } placeholder: {
-            Color.gray.opacity(0.1).frame(height: 200)
-        }
-        
-        AsyncImage(url: URL(string: campaign2)){ image in
-            image
-                .resizable().frame(height: 200).padding(hPadding)
-        } placeholder: {
-            Color.gray.opacity(0.1).frame(height: 200)
+        VStack{
+            AsyncImage(url: URL(string: campaign1)){ image in
+                image
+                    .resizable().frame(height: 200)
+                    .padding(hPadding)
+            } placeholder: {
+                Color.gray.opacity(0.1).frame(height: 200)
+            }
+            
+            AsyncImage(url: URL(string: campaign2)){ image in
+                image
+                    .resizable().frame(height: 200).padding(hPadding)
+            } placeholder: {
+                Color.gray.opacity(0.1).frame(height: 200)
+            }
         }
     }
 }
 
 struct HomeView: View {
+    @EnvironmentObject private var vm: HomeViewModel
+
     var body: some View {
         Navigation{
             ScrollView{
-                Header()
-                Deals()
-                CategoriesView()
-                Carousel()
+                VStack{
+                    Header()
+                    Deals()
+                    CategoriesList()
+                    VStack(alignment: .leading){
+                        Text("New arrival")
+                        ProductList(products: vm.products)
+                    }
+                }
             }
         }
     }

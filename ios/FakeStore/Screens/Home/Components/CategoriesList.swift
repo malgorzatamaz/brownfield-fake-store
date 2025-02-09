@@ -6,19 +6,15 @@
 //
 
 import SwiftUI
-struct CategoryItem: Identifiable {
-    let id = UUID()
-    let title: String
-    let imageURL: String
-}
 
-struct CategoriesView: View {
+
+struct CategoriesList: View {
     private let categories = [
-        CategoryItem(title: "Rings", imageURL: "https://example.com/rings.jpg"),
-        CategoryItem(title: "Necklace", imageURL: "https://example.com/necklace.jpg"),
-        CategoryItem(title: "Bracelets", imageURL: "https://example.com/bracelets.jpg"),
-        CategoryItem(title: "Earrings", imageURL: "https://example.com/earrings.jpg"),
-        CategoryItem(title: "Nose", imageURL: "https://example.com/nose.jpg")
+        Category(imageURL: "https://example.com/rings.jpg", title: "Rings"),
+        Category(imageURL: "https://example.com/necklace.jpg", title: "Necklace"),
+        Category(imageURL: "https://example.com/bracelets.jpg", title: "Bracelets"),
+        Category(imageURL: "https://example.com/earrings.jpg", title: "Earrings"),
+        Category(imageURL: "https://example.com/nose.jpg", title: "Nose")
     ]
 
     var body: some View {
@@ -28,7 +24,7 @@ struct CategoriesView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
                     ForEach(categories) { category in
-                        CategoryView(category: category)
+                        CategoryItem(category: category)
                     }
                 }
                 .padding(.horizontal)
@@ -59,8 +55,8 @@ struct HeaderView: View {
     }
 }
 
-struct CategoryView: View {
-    let category: CategoryItem
+struct CategoryItem: View {
+    let category: Category
 
     var body: some View {
         VStack(spacing: 8) {
@@ -96,6 +92,6 @@ struct CategoryView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesView()
+        CategoriesList()
     }
 }
