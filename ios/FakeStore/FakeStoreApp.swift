@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct FakeStoreApp: App {
+    @StateObject private var vm = HomeViewModel()
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            HomeView().environmentObject(vm)
         }
     }
 }
