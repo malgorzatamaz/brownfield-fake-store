@@ -12,6 +12,7 @@ struct SearchView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
         VStack{
             HStack{
                 RoundedButton(action: {

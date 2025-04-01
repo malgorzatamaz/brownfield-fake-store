@@ -9,8 +9,6 @@ import Foundation
 import Combine
 
 class HomeViewModel: ObservableObject {
-    @Published var deals: [Deal] = []
-    @Published var categories: [Category] = []
     @Published var products: [Product] = []
     
     private let dataService = ProductDataService()

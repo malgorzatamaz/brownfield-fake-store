@@ -14,12 +14,8 @@ struct CategoryView: View {
             RoundedButton(action: {
                 dismiss()
             }) {
-                Image(systemName: "arrowshape.backward")
-                    .imageScale(.medium)
-                    .foregroundStyle(buttonIconColor)
+                Text("Whishlist").font(.title2).padding(.trailing, vPadding)
             }
-            Text("Whishlist").font(.title2).padding(.trailing, vPadding)
-            Spacer()
         }.padding(.horizontal, hPadding)
         Spacer()
     }

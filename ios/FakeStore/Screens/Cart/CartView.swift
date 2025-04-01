@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CartView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var cartState: CartState
+    
     var body: some View {
         VStack{
             HStack{
@@ -24,39 +26,43 @@ struct CartView: View {
                 
             }.padding(.vertical, vPadding)
             ScrollView{
-                CartItem()
-                CartItem()
-                CartItem()
-                CartItem()
-                CartItem()
-                CartItem()
+                VStack(spacing: hPadding) {
+                    ForEach(cartState.items) { cartItem in
+                        CartItemView(cartItem: cartItem)
+                    }
+                }
             }
             
             Grid(verticalSpacing: 5){
                 HStack{
                     Text("Sub Total")
                     Spacer()
-                    Text("650$")
+                    Text(String(cartState.getTotal()) + "$")
                 }
                 HStack{
                     Text("Shipping")
                     Spacer()
-                    Text("10$")
+                    Text(String(cartState.getShipping()) + "$")
                 }
                 HStack{
                     Text("Total")
                     Spacer()
-                    Text("660$")
+                    Text(String(cartState.getTotal() + cartState.getShipping()) + "$")
                 }
             }
             
-            RectButton(action: {
-                
-            }, text: "Checkout")
+            NavigationLink(destination: CheckoutView()) {
+            VStack {
+                Text("Checkout").font(.title3).foregroundColor(.white)
+            }
+            .frame(maxWidth: .infinity, minHeight: 40)
+            .background(.blue)
+            .cornerRadius(5)
+            }
         }.padding(.horizontal, hPadding)
     }
 }
 
 #Preview {
-    CartView()
+    CartView().environmentObject(CartState())
 }

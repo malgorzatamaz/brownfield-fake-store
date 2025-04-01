@@ -19,28 +19,31 @@ struct ProductItem: View {
     
     var body: some View {
         NavigationLink(destination: ProductView(product: product), label: {
-            Card(height: 120){
-                VStack{
-                    if(product.apiFeaturedImage != nil){
-                        AsyncImage(url: URL(string: product.apiFeaturedImage!)){ image in
+            Card(height: 200){
+                VStack(alignment: .leading){
+                    if(product.imageLink != nil){
+                        AsyncImage(url: URL(string: product.imageLink!)){ image in
                             image
-                                .resizable().scaledToFit().padding(5)
+                                .resizable().frame(height: 110).scaledToFit().padding(hPadding)
                         } placeholder: {
-                            Color.gray.opacity(0.1)
+                            Color.gray.opacity(0.1).frame(height: 110)
                         }
                     }
                     else{
-                        Color.gray.opacity(0.1)
+                        Color.gray.opacity(0.1).frame(height: 110)
                     }
                     Spacer()
-                    Text(product.name)
-                    if(product.price != nil){
-                        let price = "\(product.price!) \(product.priceSign ?? "$")"
-                        Text(price)
+                    VStack(alignment: .leading){
+                        Text(product.name).multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/).foregroundColor(titleColor).font(.subheadline)
+
+                        if(product.price != nil){
+                            let price = "\(product.price!) \(product.priceSign ?? "$")"
+                            Text(price).font(.caption).foregroundColor(subtitleColor)
+                        }
                     }
                 }
             }
-        }).navigationBarBackButtonHidden(true)
+        })
     }
 }
 
@@ -50,7 +53,7 @@ struct ProductList: View {
     let products: [Product]
     var body: some View {
                 LazyVGrid(
-                    columns: Array(repeating: GridItem(.flexible()), count: 3)
+                    columns: Array(repeating: GridItem(.flexible(maximum: 300)), count: 2)
                 ) {
                     ForEach(products) { product in
                         VStack {
@@ -58,7 +61,7 @@ struct ProductList: View {
                         }
                     }
                 }
-            }
+    }
 }
 
 #Preview {

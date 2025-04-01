@@ -8,61 +8,52 @@
 import SwiftUI
 
 
-struct CartItem: View {
-//    struct CartItem<Content: View>: View {
-//    let content: () -> Content
-//    let width: CGFloat
-//    let height: CGFloat
-//    
-//    init(
-//        width: CGFloat = 150,
-//        height: CGFloat = 200,
-//        @ViewBuilder content: @escaping () -> Content
-//    ) {
-//        self.width = width
-//        self.height = height
-//        self.content = content
-//    }
+struct CartItemView: View {
+    var cartItem: CartItem
+    @EnvironmentObject var cartState: CartState
     
     var body: some View {
         HStack{
             Card(width: .infinity, height: 220){
-                Card(width: 200,height: 200, content: {
-                    AsyncImage(url: URL(string: campaign1)){ image in
+                Card(width: 150,height: 150, content: {
+                    AsyncImage(url: URL(string: cartItem.product.imageLink!)){ image in
                         image
-                            .resizable().frame(width: 200, height: 200)
+                            .resizable().frame(width: 150, height: 150)
                     } placeholder: {
-                        Color.gray.opacity(0.1).frame(width: 200, height: 200)
+                        Color.gray.opacity(0.1).frame(width: 150, height: 150)
                     }
                     
-                }).padding(.horizontal, 10)
+                })
                 
                 
-                Grid (alignment: .leading, horizontalSpacing: hPadding, verticalSpacing: vPadding) {
-                    Text("Oh Snap Pencil")
+                Grid (alignment: .leading, horizontalSpacing: vPadding, verticalSpacing: vPadding) {
+                    Text(cartItem.product.name)
                     GridRow {
                         Text("Price: ")
-                        Text("10$")
+                        Text((cartItem.product.price ?? "-") + "$")
                     }
                     
                     GridRow {
                         Text("Brand: ")
-                        Text("Maybeline")
+                        Text(cartItem.product.brand ?? "Other")
                     }
                     Spacer()
                     HStack{
                         RoundedButton(action: {
-                            
+                            if(cartItem.quantity > 1)
+                            {
+                                cartState.updateQuantity(productId: cartItem.product.id, quantity: cartItem.quantity - 1)
+                            }
                         }) {
                             Image(systemName: "minus")
                                 .imageScale(.medium)
-                                .foregroundStyle(.tint)
+                                .foregroundStyle(cartItem.quantity > 1 ? Color.black : Color.gray)
                         }
                         
-                        Text("1")
+                        Text(String(cartItem.quantity))
                         
                         RoundedButton(action: {
-                            
+                            cartState.updateQuantity(productId: cartItem.product.id, quantity: cartItem.quantity + 1)
                         }) {
                             
                             Image(systemName: "plus")
@@ -73,14 +64,14 @@ struct CartItem: View {
                         Spacer()
                         
                         RoundedButton(action: {
-                            
+                            cartState.removeFromCart(productId: cartItem.product.id)
                         }) {
                             Image(systemName: "trash")
                                 .imageScale(.medium)
                                 .foregroundStyle(.tint)
                         }.padding(.trailing, 10)
                     }
-                }.padding(.vertical, 15)
+                }.padding(.vertical, vPadding)
             }
         }
     }
@@ -89,7 +80,7 @@ struct CartItem: View {
 
 #Preview {
     HStack{
-        CartItem()
+        CartItemView(cartItem: CartItem(product: productMock, quantity: 1)).environmentObject(CartState())
     }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.gray)
 }
 
