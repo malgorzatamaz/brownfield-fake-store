@@ -26,7 +26,7 @@ struct Card<Content: View>: View {
         }
         .frame(width: width, height: height)
         .background(Color.white)
-        .cornerRadius(20)
+        .cornerRadius(10)
         .shadow(color: .gray.opacity(0.5), radius: 5, x: 0, y: 5)
     }
 }

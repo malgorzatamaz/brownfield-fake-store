@@ -9,28 +9,23 @@ import SwiftUI
 
 
 struct CategoriesList: View {
-    private let categories = [
-        Category(imageURL: "https://example.com/rings.jpg", title: "Rings"),
-        Category(imageURL: "https://example.com/necklace.jpg", title: "Necklace"),
-        Category(imageURL: "https://example.com/bracelets.jpg", title: "Bracelets"),
-        Category(imageURL: "https://example.com/earrings.jpg", title: "Earrings"),
-        Category(imageURL: "https://example.com/nose.jpg", title: "Nose")
-    ]
+    
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HeaderView()
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(categories) { category in
-                        CategoryItem(category: category)
+        ScrollView {
+            VStack(alignment: .leading, spacing: hPadding) {
+                HeaderView()
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: hPadding) {
+                        ForEach(productTypes, id: \.self) { type in
+                            CategoryItem(category: type)
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
         }
-        .padding(.vertical)
     }
 }
 
@@ -56,38 +51,15 @@ struct HeaderView: View {
 }
 
 struct CategoryItem: View {
-    let category: Category
+    let category: String
 
     var body: some View {
-        VStack(spacing: 8) {
-            AsyncImage(url: URL(string: category.imageURL)) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView() // Shows a loading spinner
-                        .frame(width: 60, height: 60)
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.gray, lineWidth: 1))
-                case .failure:
-                    Image(systemName: "photo") // Fallback image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.gray)
-                @unknown default:
-                    EmptyView()
-                }
-            }
-
-            Text(category.title)
+        Card{
+            Text(category)
                 .font(.caption)
                 .foregroundColor(.black)
+            }
         }
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
