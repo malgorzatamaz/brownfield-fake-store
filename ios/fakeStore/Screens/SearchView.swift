@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State var text = ""
+    @State var searchText = ""
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject private var sm: SearchViewModel
     
     var body: some View {
         
         VStack{
-            HStack{
+            HStack(alignment: .top){
                 RoundedButton(action: {
                     dismiss()
                 }) {
@@ -23,7 +24,8 @@ struct SearchView: View {
                         .foregroundStyle(buttonIconColor)
                 }
                 SearchInput(
-                    text: $text
+                    text: $searchText,
+                    suggestions: sm.suggestions
                 )
                 Spacer()
             }.padding(.horizontal, hPadding)
