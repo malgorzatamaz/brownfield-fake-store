@@ -23,17 +23,13 @@ class ProductDataService {
     }
     
     
-    func filterProducts(productType: String?, productCategory: String?, productTags: [String]?, brand: String?) -> Void {
+    func filterProducts(productType: String?, productTags: [String]?, brand: String?) -> Void {
         var queryItems: [String] = []
         
         if let productType = productType, !productType.isEmpty {
             queryItems.append("product_type=\(productType.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)")
         }
-        
-        if let productCategory = productCategory, !productCategory.isEmpty {
-            queryItems.append("product_category=\(productCategory.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)")
-        }
-        
+
         if let productTags = productTags, !productTags.isEmpty {
             let tagsString = productTags.joined(separator: ",")
             queryItems.append("product_tags=\(tagsString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)")

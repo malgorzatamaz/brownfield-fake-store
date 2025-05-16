@@ -25,11 +25,16 @@ struct SearchView: View {
                 }
                 SearchInput(
                     text: $searchText,
-                    suggestions: sm.suggestions
+                    suggestions: sm.suggestions,
+                    action: { filter in
+                           sm.filterProduct(filter: filter)
+                       }
                 )
                 Spacer()
             }.padding(.horizontal, hPadding)
-            ProductList(products: [])
+            ScrollView{
+                ProductList(products: sm.products)
+            }
             Spacer()
         }.background(Color.init(hex:"#d1d1d1" ))
     }

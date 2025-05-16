@@ -9,8 +9,9 @@ import SwiftUI
 
 struct SearchInput: View {
     @Binding var text: String
-    var suggestions: [String]
     @State var showSuggestions = true
+    var suggestions: [String]
+    var action: (String) -> Void
     
     var filteredOptions: [String] {
           if text.isEmpty {
@@ -38,13 +39,13 @@ struct SearchInput: View {
             }
             
             if(showSuggestions){
-                
                 ScrollView {
                     LazyVStack(spacing: 0) {
                         ForEach(filteredOptions, id: \.self) { option in
                             Text(option)
                                 .onTapGesture {
                                     showSuggestions = false
+                                    action(option)
                                     text = option
                                 }
                             if(option != filteredOptions[filteredOptions.count - 1]){
@@ -68,11 +69,17 @@ struct SearchInput: View {
 
 struct SearchInput_Previews: PreviewProvider {
     @State static var text = ""
-
+    
+    func action(str: String) {
+        
+    }
+    
     static var previews: some View {
         SearchInput(
             text: $text,
-            suggestions: ["apple", "cherry"]
+            suggestions: ["apple", "cherry"],
+            action: { str in
+            }
         )
         .previewLayout(.sizeThatFits)
         .padding().background(.gray)
